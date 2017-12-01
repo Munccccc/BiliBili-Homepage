@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyTabLayout" parent="TextAppearance.Design.Tab">  <!--TAB文字样式2-->
+        <item name="android:textSize">15sp</item><!--英文大写,默认true-->
+    </style>
 </resources>
