@@ -6,4 +6,5 @@ package lesson_menu.example.com.munccoordinator.content;
 
 public class CommonContent {
     public static String TITLE = "title";
+    public static String INDEX = "index";
 }

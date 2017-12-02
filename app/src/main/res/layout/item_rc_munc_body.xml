@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_main1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_one"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:src="@drawable/cat" />
+
+        <!--        <ImageView
+                    android:id="@+id/iv_two"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/cat" />-->
+    </LinearLayout>
+    <!--这是一个特殊的布局-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_special"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center" />
+</LinearLayout>

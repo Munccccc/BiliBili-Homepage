@@ -1,13 +1,108 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/twinklingRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="lesson_menu.example.com.munccoordinator.fragment.MyFragment">
+    android:background="#FFFFFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:addStatesFromChildren="true">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:clipChildren="false">
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|snap">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_collapseMode="parallax">
+
+                        <ImageView
+                            android:id="@+id/iv_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_outside_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:background="#E97998"
+                        android:orientation="horizontal">
+
+                        <android.support.design.widget.TabLayout
+                            android:id="@+id/tabLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="43dp"
+                            app:tabIndicatorColor="#ffffff"
+                            app:tabSelectedTextColor="#ffffff"
+                            app:tabTextColor="#F8DCE5" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="#ffffff" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#f0f0f0"
+                    android:overScrollMode="never" />
+            </LinearLayout>
+        </android.support.design.widget.CoordinatorLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_go_top_home"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        android:src="@drawable/go_top"
+        android:visibility="invisible" />
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

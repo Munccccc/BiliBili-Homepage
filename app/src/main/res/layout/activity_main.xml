@@ -10,24 +10,15 @@
         android:id="@+id/rl_title"
         android:layout_width="fill_parent"
         android:layout_height="43dip"
-        android:background="#FFFFFF">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:src="@drawable/back" />
+        android:background="#E97998">
 
         <TextView
             android:id="@+id/tv_title_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Title"
-            android:textColor="#333333"
+            android:text="@string/myMunc"
+            android:textColor="#ffffff"
             android:textSize="20sp" />
 
     </RelativeLayout>
@@ -36,6 +27,7 @@
         android:id="@+id/ll_outside_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#E97998"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -63,10 +55,10 @@
             android:layout_width="0dp"
             android:layout_height="38dp"
             android:layout_weight="1"
-            app:tabIndicatorColor="#ff4500"
-            app:tabSelectedTextColor="#ff4500"
+            app:tabIndicatorColor="#ffffff"
+            app:tabSelectedTextColor="#ffffff"
             app:tabTextAppearance="@style/MyTabLayout"
-            app:tabTextColor="#2B2B2B" />
+            app:tabTextColor="#F8DCE5" />
 
 
     </LinearLayout>
