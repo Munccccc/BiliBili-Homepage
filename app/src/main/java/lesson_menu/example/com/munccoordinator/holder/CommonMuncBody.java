@@ -2,20 +2,20 @@ package lesson_menu.example.com.munccoordinator.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import lesson_menu.example.com.munccoordinator.R;
+import lesson_menu.example.com.munccoordinator.view.RoundImageView;
 
 /**
- * Created by GD on 2017/11/27.
+ * Created by Munc on 2017/11/27.
  */
 
 public class CommonMuncBody extends RecyclerView.ViewHolder {
 
 
     public LinearLayout ll_main1;
-    public ImageView iv_one;
+    public RoundImageView iv_one;
     public RecyclerView rc_special;
 
     public CommonMuncBody(View view) {

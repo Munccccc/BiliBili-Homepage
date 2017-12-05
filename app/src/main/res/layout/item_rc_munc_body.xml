@@ -7,17 +7,18 @@
 
     <LinearLayout
         android:id="@+id/ll_main1"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_linear_radius"
         android:orientation="horizontal">
 
-        <ImageView
+        <lesson_menu.example.com.munccoordinator.view.RoundImageView
             android:id="@+id/iv_one"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_weight="1"
-            android:src="@drawable/cat" />
+            android:src="@drawable/item_pic" />
 
         <!--        <ImageView
                     android:id="@+id/iv_two"

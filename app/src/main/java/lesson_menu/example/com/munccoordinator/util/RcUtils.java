@@ -9,7 +9,7 @@ import lesson_menu.example.com.munccoordinator.adapter.MuncSpecialAdapter;
 import lesson_menu.example.com.munccoordinator.holder.CommonMuncBody;
 
 /**
- * Created by GD on 2017/12/2.
+ * Created by Munc on 2017/12/2.
  */
 
 public class RcUtils {
@@ -29,7 +29,7 @@ public class RcUtils {
                 Utils.showToast(mContext, "" + position);
             }
         });
-        //出现横向布局  插播
+        //出现横向布局  插播 这里数量为循环递增
         if (position % 7 == 0) {
             holder.ll_main1.setVisibility(View.GONE);
             holder.rc_special.setVisibility(View.VISIBLE);

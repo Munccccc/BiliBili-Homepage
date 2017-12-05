@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 /**
- * Created by GD on 2017/9/13.
+ * Created by Munc on 2017/9/13.
  */
 
 public class RoundImageView extends ImageView {

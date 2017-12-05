@@ -17,7 +17,7 @@ import lesson_menu.example.com.munccoordinator.util.AppCompatUtils;
 import lesson_menu.example.com.munccoordinator.util.RcUtils;
 
 /**
- * Created by GD on 2017/12/2.
+ * Created by Munc on 2017/12/2.
  */
 
 public class MuncAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -61,7 +61,7 @@ public class MuncAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             return new HeaderViewHolder(headerView);
         } else if (viewType == ITEM_TYPE_CONTENT) {
-            View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rc_munc_body, parent, false);
+            View layout = LayoutInflater.from(mContext).inflate(R.layout.item_rc_munc_body, parent, false);
             RecyclerView rc_special = layout.findViewById(R.id.rc_special);
             //RC
             final GridLayoutManager manager = new GridLayoutManager(mContext, SPAN_COUNT_ONE, GridLayoutManager.HORIZONTAL, false);

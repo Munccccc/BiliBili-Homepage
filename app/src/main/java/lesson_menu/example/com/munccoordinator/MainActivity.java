@@ -6,19 +6,35 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import lesson_menu.example.com.munccoordinator.content.CommonContent;
+import lesson_menu.example.com.munccoordinator.content.UrlBaseContent;
+import lesson_menu.example.com.munccoordinator.content.UrlContent;
 import lesson_menu.example.com.munccoordinator.fragment.MyFragment;
+import lesson_menu.example.com.munccoordinator.info.RankingInfo;
+import lesson_menu.example.com.munccoordinator.inter.ResponseCommonService;
 import lesson_menu.example.com.munccoordinator.util.AppCompatUtils;
 import lesson_menu.example.com.munccoordinator.util.Utils;
+import lesson_menu.example.com.munccoordinator.view.RoundImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
     ViewPager mViewPager;
     @BindView(R.id.rl_title)
     RelativeLayout rlTitle;
+    @BindView(R.id.tv_sx)
+    RoundImageView tvSx;
+    @BindView(R.id.rc_drawer)
+    RecyclerView rcDrawer;
+    @BindView(R.id.drawerLayout)
+    DrawerLayout mDrawerLayout;
+
+
     private String[] tabTitle = {"手机游戏", "综合", "鬼畜", "影视杂谈", "绘画", "番剧", "人文地理", "科技"};
 
     private List<String> listT = new ArrayList<String>();//页卡标题集合
@@ -46,11 +70,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDatas() {
-        //do somethings........ RequestHttp
         init();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //测试
+        initRetrofit();
+    }
+
+    private void initRetrofit() {
+        //do somethings........ RequestHttp  这里没有用接口数据
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlContent.common + UrlBaseContent.Indexday3)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+        ResponseCommonService service = retrofit.create(ResponseCommonService.class);
+        Call<RankingInfo> call = service.rankingGet("3");
+        call.enqueue(new Callback<RankingInfo>() {
+            @Override
+            public void onResponse(Call<RankingInfo> call, Response<RankingInfo> response) {
+                List<RankingInfo.DataBean> rankingList = response.body().getData();
+                String description = rankingList.get(0).getDescription();
+                Utils.showToast(MainActivity.this, description);
+            }
+
+            @Override
+            public void onFailure(Call<RankingInfo> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void init() {
+//        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //禁止drawerLayout滑动
         AppCompatUtils.setScreenScale(rlTitle, width, 1, 8.18);
         AppCompatUtils.setAppStatus(MainActivity.this);
 
@@ -74,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。 （标题和viewpager关联）
         mTabLayout.setTabsFromPagerAdapter(fragmentPagerAdapter);//给Tabs设置适配器  （标题和适配器关联）
         mViewPager.setCurrentItem(0);
+    }
+
+    @OnClick(R.id.tv_sx)
+    public void onViewClicked() {
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {

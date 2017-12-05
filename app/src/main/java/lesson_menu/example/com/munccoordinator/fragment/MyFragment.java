@@ -34,6 +34,7 @@ import lesson_menu.example.com.munccoordinator.adapter.MuncAdapter;
 import lesson_menu.example.com.munccoordinator.content.CommonContent;
 import lesson_menu.example.com.munccoordinator.util.AppCompatUtils;
 import lesson_menu.example.com.munccoordinator.util.Utils;
+import lesson_menu.example.com.munccoordinator.view.RoundImageView;
 
 
 public class MyFragment extends Fragment {
@@ -49,7 +50,7 @@ public class MyFragment extends Fragment {
     @BindView(R.id.recyclerview)
     RecyclerView mRcyclerview;
     @BindView(R.id.iv_go_top_home)
-    ImageView ivGoTopHome;
+    RoundImageView ivGoTopHome;
     @BindView(R.id.twinklingRefreshLayout)
     TwinklingRefreshLayout mRefreshLayout;
     Unbinder unbinder;
@@ -219,12 +220,12 @@ public class MyFragment extends Fragment {
         mRcyclerview.setLayoutManager(manager);
         muncAdapter = new MuncAdapter(getActivity(), mList);
         mRcyclerview.setAdapter(muncAdapter);
-        //默认加数据 总集合 默认上来5条吧
+        //默认加数据 总集合 默认上来9条吧
         for (int a = 0; a < 10; a++) {
             mList.add(a);
         }
-        //新增集合 一次8条
-        for (int a = 0; a < 8; a++) {
+        //新增集合 一次20条
+        for (int a = 0; a < 20; a++) {
             addlist.add(a);
         }
         //设置一个头 头部占一行

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import lesson_menu.example.com.munccoordinator.manager.StatusBarColorManager;
 
 /**
- * Created by GD on 2017/10/31.
+ * Created by Munc on 2017/10/31.
  */
 
 

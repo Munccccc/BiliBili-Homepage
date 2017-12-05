@@ -13,7 +13,7 @@ import java.util.List;
 import lesson_menu.example.com.munccoordinator.R;
 
 /**
- * Created by GD on 2017/12/2.
+ * Created by Munc on 2017/12/2.
  */
 
 public class MuncSpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -34,7 +34,7 @@ public class MuncSpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View view;
         //身体的布局适配
         view = mLayoutInflater.inflate(R.layout.item_horizontal_special, parent, false);
-        ImageView iv_goodsImage = (ImageView) view.findViewById(R.id.iv_goodsImage);
+        ImageView iv_goodsImage = view.findViewById(R.id.iv_goodsImage);
 
         //图片
         ViewGroup.LayoutParams layoutParams_iv_goodsImage = iv_goodsImage.getLayoutParams();
