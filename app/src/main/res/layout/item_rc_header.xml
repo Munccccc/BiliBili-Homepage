@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
 
-    <lesson_menu.example.com.munccoordinator.view.RoundImageView
+    <app.munc.munccoordinator.view.RoundImageView
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:scaleType="fitXY"

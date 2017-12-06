@@ -14,7 +14,7 @@
         android:background="@drawable/bg_linear_radius"
         android:orientation="horizontal">
 
-        <lesson_menu.example.com.munccoordinator.view.RoundImageView
+        <app.munc.munccoordinator.view.RoundImageView
             android:id="@+id/iv_one"
             android:layout_width="match_parent"
             android:layout_height="150dp"

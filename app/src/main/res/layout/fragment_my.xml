@@ -95,7 +95,7 @@
 
     </LinearLayout>
 
-    <lesson_menu.example.com.munccoordinator.view.RoundImageView
+    <app.munc.munccoordinator.view.RoundImageView
         android:id="@+id/iv_go_top_home"
         android:layout_width="40dp"
         android:layout_height="40dp"
