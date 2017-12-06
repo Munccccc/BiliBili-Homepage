@@ -8,4 +8,7 @@ public class UrlBaseContent {
 
 
     public final static String Indexday3 = "x/web-interface/ranking/";
+
+    public final static String Fj = "api/";
+
 }

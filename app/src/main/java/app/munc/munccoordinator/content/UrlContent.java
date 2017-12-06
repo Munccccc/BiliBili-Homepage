@@ -8,4 +8,6 @@ public class UrlContent {
 
     public final static String common = "https://api.bilibili.com/";
 
+    public final static String commonFj = "https://bangumi.bilibili.com/";
+
 }

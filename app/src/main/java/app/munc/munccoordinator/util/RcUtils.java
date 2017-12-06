@@ -3,10 +3,16 @@ package app.munc.munccoordinator.util;
 import android.content.Context;
 import android.view.View;
 
-import java.util.List;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.List;
+import java.util.Random;
+
+import app.munc.munccoordinator.R;
 import app.munc.munccoordinator.adapter.MuncSpecialAdapter;
 import app.munc.munccoordinator.holder.CommonMuncBody;
+import app.munc.munccoordinator.info.BiliBiliFanjuInfo;
 
 
 /**
@@ -17,7 +23,7 @@ public class RcUtils {
 
     public static void setRcLogic(final Context mContext,
                                   final CommonMuncBody holder, final int position,
-                                  List<String> dataAll, MuncSpecialAdapter mAdapter, List dataSpecial) {
+                                  BiliBiliFanjuInfo.ResultBean resultBean, MuncSpecialAdapter mAdapter, List<BiliBiliFanjuInfo.ResultBean> dataSpecial) {
         holder.ll_main1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,6 +36,12 @@ public class RcUtils {
                 Utils.showToast(mContext, "" + position);
             }
         });
+        Glide.with(mContext.getApplicationContext())
+                .load(dataSpecial.get(new Random().nextInt(dataSpecial.size())).getSquare_cover())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.drawable.default_image)
+                .error(R.drawable.default_image).into(holder.iv_one);
+
         //出现横向布局  插播 这里数量为循环递增
         if (position % 7 == 0) {
             holder.ll_main1.setVisibility(View.GONE);

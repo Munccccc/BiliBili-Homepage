@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private int width;
     private MuncDrawerAdapter muncDrawerAdapter;
     private List mList = new ArrayList();
+    private List<RankingInfo.DataBean> rankingList;
 
 
     @Override
@@ -75,15 +76,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDatas() {
-        init();
+        //测试
+        initRetrofit();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        //测试
-        initRetrofit();
+
     }
 
     private void initRetrofit() {
@@ -97,9 +98,10 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<RankingInfo>() {
             @Override
             public void onResponse(Call<RankingInfo> call, Response<RankingInfo> response) {
-                List<RankingInfo.DataBean> rankingList = response.body().getData();
+                rankingList = response.body().getData();
                 String description = rankingList.get(0).getDescription();
                 Utils.showToast(MainActivity.this, description);
+                init();
             }
 
             @Override
@@ -114,10 +116,7 @@ public class MainActivity extends AppCompatActivity {
         muncDrawerAdapter = new MuncDrawerAdapter(MainActivity.this, mList);
         rcDrawer.setLayoutManager(manager);
         rcDrawer.setAdapter(muncDrawerAdapter);
-        //默认加数据 总集合 默认上来9条吧
-        for (int a = 0; a < 10; a++) {
-            mList.add(a);
-        }
+        muncDrawerAdapter.addData(rankingList);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

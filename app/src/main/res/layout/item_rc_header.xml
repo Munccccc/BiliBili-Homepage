@@ -9,6 +9,7 @@
 
 
     <app.munc.munccoordinator.view.RoundImageView
+        android:id="@+id/ri_headerView"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:scaleType="fitXY"
@@ -21,6 +22,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5"

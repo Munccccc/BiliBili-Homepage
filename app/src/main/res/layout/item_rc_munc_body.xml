@@ -18,6 +18,7 @@
             android:id="@+id/iv_one"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:scaleType="fitXY"
             android:src="@drawable/item_pic" />
 
         <!--        <ImageView

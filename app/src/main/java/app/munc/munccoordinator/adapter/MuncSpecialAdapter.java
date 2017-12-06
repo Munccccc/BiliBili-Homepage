@@ -8,9 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.List;
+import java.util.Random;
 
 import app.munc.munccoordinator.R;
+import app.munc.munccoordinator.info.BiliBiliFanjuInfo;
 
 
 /**
@@ -21,7 +26,7 @@ public class MuncSpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final Context mContext;
     private final LayoutInflater mLayoutInflater;
     private final int width;
-    private List<String> dataAll;
+    private List<BiliBiliFanjuInfo.ResultBean> dataAll;
 
     public MuncSpecialAdapter(Context mContext) {
         this.mContext = mContext;
@@ -48,7 +53,11 @@ public class MuncSpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof FakePageVH) {
-
+            Glide.with(mContext.getApplicationContext())
+                    .load(dataAll.get(new Random().nextInt(dataAll.size())).getCover())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .placeholder(R.drawable.xiaomai)
+                    .error(R.drawable.xiaomai).into(((FakePageVH) holder).iv_goodsImage);
         }
     }
 
@@ -64,14 +73,14 @@ public class MuncSpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return position;
     }
 
-    public void addData(List<String> catProductList) {
+    public void addData(List<BiliBiliFanjuInfo.ResultBean> catProductList) {
         dataAll = catProductList;
         notifyDataSetChanged();
     }
 
 
     private class FakePageVH extends RecyclerView.ViewHolder {
-        private final ImageView iv_goodsImage;
+        public final ImageView iv_goodsImage;
 
         public FakePageVH(View view) {
             super(view);

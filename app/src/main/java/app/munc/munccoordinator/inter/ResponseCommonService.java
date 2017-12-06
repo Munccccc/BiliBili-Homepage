@@ -1,5 +1,6 @@
 package app.munc.munccoordinator.inter;
 
+import app.munc.munccoordinator.info.BiliBiliFanjuInfo;
 import app.munc.munccoordinator.info.RankingInfo;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,6 +21,12 @@ public interface ResponseCommonService {
     //ResponseBody是Retrofit自带的返回类，
     @GET("index")
     Call<RankingInfo> rankingGet(@Query("day") String day);
+
+
+    //@Query注解的作用理解为查询条件，这里表示需要查询的字段为ip
+    //ResponseBody是Retrofit自带的返回类，
+    @GET("timeline_v2_global")
+    Call<BiliBiliFanjuInfo> getfanju();
 
 
     /**

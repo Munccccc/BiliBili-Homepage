@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.gson.GsonBuilder;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
@@ -28,6 +30,10 @@ import java.util.List;
 import app.munc.munccoordinator.R;
 import app.munc.munccoordinator.adapter.MuncAdapter;
 import app.munc.munccoordinator.content.CommonContent;
+import app.munc.munccoordinator.content.UrlBaseContent;
+import app.munc.munccoordinator.content.UrlContent;
+import app.munc.munccoordinator.info.BiliBiliFanjuInfo;
+import app.munc.munccoordinator.inter.ResponseCommonService;
 import app.munc.munccoordinator.util.AppCompatUtils;
 import app.munc.munccoordinator.util.Utils;
 import app.munc.munccoordinator.view.RoundImageView;
@@ -35,7 +41,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MyFragment extends Fragment {
@@ -59,7 +69,7 @@ public class MyFragment extends Fragment {
     ImageView ivDetail;
     private int width;
     private int position;
-
+    private List<BiliBiliFanjuInfo.ResultBean> addfanjuresult; //新增集合
     private boolean isExecuteRefresh = false;
     private boolean isExecuteLoadMore = false;
 
@@ -67,8 +77,8 @@ public class MyFragment extends Fragment {
     private String[] insideTab;
     private List<String> listT = new ArrayList<String>();//页卡标题集合
 
-    private List addlist = new ArrayList<>();//增加的集合
-
+    private List addlist = new ArrayList<>();//增加的集合  模拟
+    private List<BiliBiliFanjuInfo.ResultBean> fanjuresult;
     private String[] tabTopImgUrl = {"http://i0.hdslb.com/bfs/archive/b2fdeaebbc93faff9c35a63601d650dbf7a9a516.jpg",
             "http://i0.hdslb.com/bfs/archive/ddb9377d9d896ff6b8ee7e71f5227fe734afcae4.jpg",
             "http://i0.hdslb.com/bfs/archive/ad9616fe62d919d5535f127fb8319063224f07c0.jpg",
@@ -87,22 +97,19 @@ public class MyFragment extends Fragment {
             switch (msg.what) {
                 case LOAD_DATA:
                     if (isExecuteRefresh) {
-                        muncAdapter.setDatas(mList);
-                        for (int a = 0; a < 1; a++) {
-                            mList.add(a);
-                        }
+                        muncAdapter.setDatas(fanjuresult);
                         mRefreshLayout.finishRefreshing();
                         isExecuteRefresh = false;
                     } else if (isExecuteLoadMore) {
-                        muncAdapter.addData(addlist);
+                        muncAdapter.addData(addfanjuresult);
                         mRefreshLayout.finishLoadmore();
                         isExecuteLoadMore = false;
-                        if (mList.size() == 0) {
+                        if (addfanjuresult.size() == 0) {
                             Utils.showToast(getActivity(), getString(R.string.loadnomore));
                             return;
                         }
                     }
-                    if (mList.size() == 0) {
+                    if (fanjuresult.size() == 0) {
                         totalDy = 0;
                     }
                     break;
@@ -136,7 +143,31 @@ public class MyFragment extends Fragment {
 
     private void init() {
         //do somethings........ RequestHttp
-        initSet();
+        initRetrofit();
+
+    }
+
+    private void initRetrofit() {
+        //这里一共53条
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlContent.commonFj + UrlBaseContent.Fj)
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+        ResponseCommonService service = retrofit.create(ResponseCommonService.class);
+        Call<BiliBiliFanjuInfo> call = service.getfanju();
+        call.enqueue(new Callback<BiliBiliFanjuInfo>() {
+            @Override
+            public void onResponse(Call<BiliBiliFanjuInfo> call, Response<BiliBiliFanjuInfo> response) {
+                fanjuresult = response.body().getResult();
+                Log.e("bilibili", response.body().toString());
+                initSet();
+            }
+
+            @Override
+            public void onFailure(Call<BiliBiliFanjuInfo> call, Throwable t) {
+                Log.e("bilibili", t.getMessage());
+            }
+        });
     }
 
     private void initSet() {
@@ -177,7 +208,26 @@ public class MyFragment extends Fragment {
                         resitDataLists();
                         initOKhttp(tabTitle[tabIndex], mTitle);*/
                         isExecuteRefresh = true;
-                        mhandler.obtainMessage(LOAD_DATA).sendToTarget();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(UrlContent.commonFj + UrlBaseContent.Fj)
+                                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                                .build();
+                        ResponseCommonService service = retrofit.create(ResponseCommonService.class);
+                        Call<BiliBiliFanjuInfo> call = service.getfanju();
+                        call.enqueue(new Callback<BiliBiliFanjuInfo>() {
+                            @Override
+                            public void onResponse(Call<BiliBiliFanjuInfo> call, Response<BiliBiliFanjuInfo> response) {
+                                fanjuresult = response.body().getResult();
+                                Log.e("bilibili", response.body().toString());
+                                mhandler.obtainMessage(LOAD_DATA).sendToTarget();
+                            }
+
+                            @Override
+                            public void onFailure(Call<BiliBiliFanjuInfo> call, Throwable t) {
+                                Log.e("bilibili", t.getMessage());
+                            }
+                        });
+
                     }
                 }, 1200);
             }
@@ -192,7 +242,26 @@ public class MyFragment extends Fragment {
                         isExecuteLoadMore = true;
                         initOKhttp(tabTitle[tabIndex], mTitle);*/
                         isExecuteLoadMore = true;
-                        mhandler.obtainMessage(LOAD_DATA).sendToTarget();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl(UrlContent.commonFj + UrlBaseContent.Fj)
+                                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                                .build();
+                        ResponseCommonService service = retrofit.create(ResponseCommonService.class);
+                        Call<BiliBiliFanjuInfo> call = service.getfanju();
+                        call.enqueue(new Callback<BiliBiliFanjuInfo>() {
+                            @Override
+                            public void onResponse(Call<BiliBiliFanjuInfo> call, Response<BiliBiliFanjuInfo> response) {
+                                addfanjuresult = response.body().getResult();
+                                Log.e("bilibili", response.body().toString());
+                                mhandler.obtainMessage(LOAD_DATA).sendToTarget();
+                            }
+
+                            @Override
+                            public void onFailure(Call<BiliBiliFanjuInfo> call, Throwable t) {
+                                Log.e("bilibili", t.getMessage());
+                            }
+                        });
+
                     }
                 }, 300);
             }
@@ -219,16 +288,17 @@ public class MyFragment extends Fragment {
         //设置rc
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), SPAN_COUNT_ONE);
         mRcyclerview.setLayoutManager(manager);
-        muncAdapter = new MuncAdapter(getActivity(), mList);
+        muncAdapter = new MuncAdapter(getActivity(), fanjuresult);
         mRcyclerview.setAdapter(muncAdapter);
+        muncAdapter.addData(fanjuresult);
         //默认加数据 总集合 默认上来9条吧
-        for (int a = 0; a < 10; a++) {
+/*        for (int a = 0; a < 10; a++) {
             mList.add(a);
-        }
+        }*/
         //新增集合 一次20条
-        for (int a = 0; a < 20; a++) {
+/*        for (int a = 0; a < 20; a++) {
             addlist.add(a);
-        }
+        }*/
         //设置一个头 头部占一行
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

@@ -2,6 +2,7 @@
 <network-security-config>
     <domain-config>
         <domain includeSubdomains="true">api.bilibili.com</domain>
+        <domain includeSubdomains="true">bangumi.bilibili.com</domain>
         <trust-anchors>
             <certificates src="@raw/charlesssl" />
         </trust-anchors>
