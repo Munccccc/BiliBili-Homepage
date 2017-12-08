@@ -1,5 +1,6 @@
 package app.munc.munccoordinator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.GsonBuilder;
 
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rcDrawer;
     @BindView(R.id.drawerLayout)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.goNext)
+    TextView goNext;
 
     private String[] tabTitle = {"手机游戏", "综合", "鬼畜", "影视杂谈", "绘画", "番剧", "人文地理", "科技"};
 
@@ -78,13 +83,6 @@ public class MainActivity extends AppCompatActivity {
     private void initDatas() {
         //测试
         initRetrofit();
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     private void initRetrofit() {
@@ -150,10 +148,20 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(0);
     }
 
-    @OnClick(R.id.tv_sx)
-    public void onViewClicked() {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+    @OnClick({R.id.goNext, R.id.tv_sx})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.goNext:
+                Intent intent = new Intent(MainActivity.this, BiliBiliFanju.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+                break;
+            case R.id.tv_sx:
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+                break;
+        }
     }
+
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         private FragmentManager fm;

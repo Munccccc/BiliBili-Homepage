@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/tabTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="标签名"
+        android:textColor="#ffffff" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/tabStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="99"
+        android:textColor="#ffffff" />
+</LinearLayout>

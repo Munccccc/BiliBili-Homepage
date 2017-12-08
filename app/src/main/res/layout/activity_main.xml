@@ -29,6 +29,19 @@
                     android:textColor="#ffffff"
                     android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/goNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="正式版→"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+
             </RelativeLayout>
 
             <LinearLayout

@@ -47,7 +47,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+//第一个界面的数据
 public class MyFragment extends Fragment {
 
     private static final int LOAD_DATA = 200;

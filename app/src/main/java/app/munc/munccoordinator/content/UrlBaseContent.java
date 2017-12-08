@@ -5,10 +5,9 @@ package app.munc.munccoordinator.content;
  */
 
 public class UrlBaseContent {
-
-
     public final static String Indexday3 = "x/web-interface/ranking/";
 
     public final static String Fj = "api/";
 
+    public final static String Anim = "x/web-interface/dynamic/";
 }
