@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class FininAnim extends Fragment {
     private List<String> listT = new ArrayList<>();
     private MyFragmentPagerAdapter fragmentPagerAdapter;
     private ArrayList<Fragment> fragments = new ArrayList<Fragment>(); //页卡视图集合
+    private int position1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -151,9 +153,30 @@ public class FininAnim extends Fragment {
         mTabLayout.setTabsFromPagerAdapter(fragmentPagerAdapter);//给Tabs设置适配器  （标题和适配器关联）
         mViewPager.setCurrentItem(0);
         mViewPager.clearOnPageChangeListeners();
-        mViewPager.addOnPageChangeListener(new SliderLayout.SliderOnPageChangeListener(mTabLayout, mSliderLayout));
+        mViewPager.addOnPageChangeListener(new SliderLayout.SliderOnPageChangeListener(mTabLayout, mSliderLayout, position1, mViewPager));
         //设置自定义tabLayout
         setupTabIcons();
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                changeTabSelect(tab);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void changeTabSelect(TabLayout.Tab tab) {
+        position1 = tab.getPosition();
+        Log.e("tabP", tab.getPosition() + "");
     }
 
     private void setupTabIcons() {

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -76,16 +77,28 @@ public class SliderLayout extends LinearLayout {
 
     public static class SliderOnPageChangeListener extends TabLayoutOnPageChangeListener {
         private final SoftReference<SliderLayout> mSliderLayoutRef;
+        private int mPositon;
+        private final ViewPager vp;
 
-        public SliderOnPageChangeListener(TabLayout tabLayout, SliderLayout layout) {
+        public SliderOnPageChangeListener(TabLayout tabLayout, SliderLayout layout, int position1, ViewPager mViewPager) {
             super(tabLayout);
             mSliderLayoutRef = new SoftReference<SliderLayout>(layout);
             layout.setupWithTabLayout(tabLayout);
+            this.mPositon = position1;
+            this.vp = mViewPager;
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
             super.onPageScrollStateChanged(state);
+        }
+
+
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+            mPositon = position;
+            vp.setCurrentItem(mPositon);
         }
 
         @Override
