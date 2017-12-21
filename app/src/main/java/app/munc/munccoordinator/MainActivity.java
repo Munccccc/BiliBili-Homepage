@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppCompatUtils.setAppStatus(MainActivity.this);
         ButterKnife.bind(this);
         getSupportActionBar().hide();
         width = AppCompatUtils.getAppScreenWidth(MainActivity.this);
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initDatas() {
         //测试
+        AppCompatUtils.setScreenScale(rlTitle, width, 1, 8.18);
         initRetrofit();
     }
 
@@ -123,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 //      mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED); //禁止drawerLayout滑动
-        AppCompatUtils.setScreenScale(rlTitle, width, 1, 8.18);
-        AppCompatUtils.setAppStatus(MainActivity.this);
 
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//设置tab模式，当前为根据文本长度变化而改变
         //设置下划线宽度

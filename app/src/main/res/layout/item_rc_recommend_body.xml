@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="horizontal">
+
+    <app.munc.munccoordinator.view.RoundImageView
+        android:id="@+id/roundIv"
+        android:layout_width="180dp"
+        android:layout_height="130dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/atv_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:maxLines="2"
+            android:text="标题"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/music_icon_trans_video" />
+
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/atv_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="文本1"
+                android:textColor="@color/bilibili" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_btn_player_danmaku_options_vertical_scroll_checked" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/atv_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="文本2"
+                android:textColor="@color/bilibili" />
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!--Label1-->
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_recommend_shape"
+                android:gravity="center_vertical"
+                android:padding="5dp"
+                android:text="很多人推荐点"
+                android:textColor="@color/white" />
+
+
+            <!--点点点-->
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_toolbar_more_vertical" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

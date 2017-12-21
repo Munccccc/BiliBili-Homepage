@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="app.munc.munccoordinator.Splash">
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/bilibili"
+        android:gravity="center"
+        android:text="原生"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/bilibili"
+        android:gravity="center"
+        android:text="个人使用"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

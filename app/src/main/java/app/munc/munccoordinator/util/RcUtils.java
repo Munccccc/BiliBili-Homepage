@@ -39,8 +39,8 @@ public class RcUtils {
         Glide.with(mContext.getApplicationContext())
                 .load(dataSpecial.get(new Random().nextInt(dataSpecial.size())).getSquare_cover())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.drawable.default_image)
-                .error(R.drawable.default_image).into(holder.iv_one);
+                .placeholder(R.drawable.img_column_no_comments)
+                .error(R.drawable.img_column_no_comments).into(holder.iv_one);
 
         //出现横向布局  插播 这里数量为循环递增
         if (position % 7 == 0) {

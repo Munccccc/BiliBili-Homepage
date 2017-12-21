@@ -69,11 +69,10 @@ public class FinishFrag extends Fragment {
         init();
     }
 
-    private void init() {
-        setRecycler();
-    }
+    private void init() {setRecycler();}
 
     private void setRecycler() {
+        mRefreshLayout.setNestedScrollingEnabled(false);
         mRefreshLayout.setEnableOverScroll(false);
         mRefreshLayout.setAutoLoadMore(true);
         //设置rc
@@ -122,8 +121,6 @@ public class FinishFrag extends Fragment {
         });
         //设置数据
         mAdapter.setDatas(mArchives);
-
-
     }
 
     @Override

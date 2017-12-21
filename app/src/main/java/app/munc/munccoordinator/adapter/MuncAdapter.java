@@ -83,8 +83,8 @@ public class MuncAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Glide.with(mContext.getApplicationContext())
                     .load(dataAll.get(new Random().nextInt(dataAll.size())).getCover())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.drawable.default_image)
-                    .error(R.drawable.default_image).into(((HeaderViewHolder) holder).ri_headerView);
+                    .placeholder(R.drawable.img_column_no_comments)
+                    .error(R.drawable.img_column_no_comments).into(((HeaderViewHolder) holder).ri_headerView);
 
             ((HeaderViewHolder) holder).tv_title.setText(dataAll.get(new Random().nextInt(dataAll.size())).getTitle());
         } else if (holder instanceof CommonMuncBody) {

@@ -35,11 +35,14 @@ import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.util.UUID;
 
 import app.munc.munccoordinator.R;
 import app.munc.munccoordinator.manager.StatusBarColorManager;
@@ -157,7 +160,7 @@ public class Utils {
                     }
                     toast.setDuration(Toast.LENGTH_SHORT);
                     view = View.inflate(context, R.layout.layouttoast, null);
-                    TextView tv_toast = (TextView) view.findViewById(R.id.tv_toast);
+                    TextView tv_toast = view.findViewById(R.id.tv_toast);
                     tv_toast.setText(notice);
                     toast.setView(view);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -683,7 +686,84 @@ public class Utils {
                       }
                   }
         );
+    }
 
+    public static String getUUid() {
+        String getid = UUID.randomUUID().toString().replace("-", "");
+        return getid;
+    }
+
+    //时间格式转换
+    public static String timeChange(String time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        String str = format1.format(date);
+        return str;
+    }
+
+    public static long timeDifference(String nowtime, String endtime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long diff = 0;
+        try {
+            //系统时间转化为Date形式
+            Date dstart = format.parse(nowtime);
+            //活动结束时间转化为Date形式
+            Date dend = format.parse(endtime);
+            //算出时间差，用ms表示
+            diff = dend.getTime() - dstart.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //返回时间差
+        return diff;
+    }
+
+    /**
+     * 获取网络时间
+     */
+    public static Long getWebsiteDatetime() {
+        SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dff.setTimeZone(TimeZone.getTimeZone("GMT+08"));
+
+        return stringToLongTime(dff.format(new Date()));
+    }
+
+    /**
+     * 把String类型的事件转换为毫秒值 "yyyy-MM-dd HH:mm:ss"
+     */
+    public static Long stringToLongTime(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        long millionSeconds = 0;//毫秒
+        try {
+            return millionSeconds = sdf.parse(time).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    /**
+     * 把Long类型的毫秒值转换为
+     *
+     * @param counttime day天 HH时mm分ss秒
+     * @return
+     */
+    public static String longToStringTime(long counttime) {
+        long days = counttime / (1000 * 60 * 60 * 24);
+        long hours = (counttime - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+        long minutes = (counttime - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+        long second = (counttime - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
+
+
+        return days + "天" + hours + "时" + minutes + "分" + second + "秒";
 
     }
 }

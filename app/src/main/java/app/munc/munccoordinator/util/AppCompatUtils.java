@@ -38,6 +38,15 @@ public class AppCompatUtils {
         }
     }
 
+    public static void setAppStatusWhite(Activity context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            StatusBarColorManager mStatusBarColorManager = new StatusBarColorManager(context);
+            int color = Color.parseColor("#FAFAFA");
+            mStatusBarColorManager.setStatusBarColor(color, false, false);
+            context.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
     /**
      * 获取屏幕的宽度
      *

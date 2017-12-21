@@ -25,6 +25,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="60dp"
         android:layout_marginRight="30dp"
-        android:src="@drawable/go_top"
+        android:src="@drawable/mall_home_float_back_top"
         android:visibility="invisible" />
 </RelativeLayout>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_bili_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="app.munc.munccoordinator.BiliMainAct">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.24">
+
+        <FrameLayout
+            android:id="@+id/fl_main_activity"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></FrameLayout>
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#eeeeee" />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.76"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:paddingTop="2dp">
+
+        <LinearLayout
+            android:id="@+id/ll_page1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_page1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_home_unselected" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_page1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="首页"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_page2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_page2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_category_unselected" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_page2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="分区"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_page3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_page3"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_dynamic_unselected" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_page3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="动态"
+                android:textColor="#999999"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_page4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_page4"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_communicate_unselected" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_page4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="消息"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_page5"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_page5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/emoji_nanguo0027" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_page5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="我的"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

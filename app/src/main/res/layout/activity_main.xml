@@ -38,7 +38,7 @@
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="正式版→"
+                    android:text="next"
                     android:textColor="#ffffff"
                     android:textSize="14sp" />
 
@@ -61,7 +61,7 @@
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:src="@drawable/drawleft" />
+                        android:src="@drawable/ic_blacklist_avatar" />
                 </LinearLayout>
 
                 <View

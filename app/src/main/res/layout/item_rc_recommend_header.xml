@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            app:image_scale_type="fit_xy"
+            app:indicator_drawable_selected="@drawable/selected_radius"
+            app:indicator_drawable_unselected="@drawable/unselected_radius"
+            app:indicator_height="7dp"
+            app:indicator_margin="7dp"
+            app:indicator_width="7dp" />
+
+        <app.munc.munccoordinator.view.RoundImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_banner_shape" />
+
+
+    </RelativeLayout>
+</LinearLayout>

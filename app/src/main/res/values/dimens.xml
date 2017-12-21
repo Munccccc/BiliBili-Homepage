@@ -2,4 +2,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="bili_ssmall_size">14dp</dimen>
+    <dimen name="bili_small_size">14dp</dimen>
+    <dimen name="bili_normal_size">16dp</dimen>
+    <dimen name="bili_large_size">18dp</dimen>
+    <dimen name="bili_llarge_size">20dp</dimen>
 </resources>

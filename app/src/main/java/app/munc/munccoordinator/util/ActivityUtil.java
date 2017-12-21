@@ -35,7 +35,10 @@ public class ActivityUtil {
         }
         activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
-    
+
+
+
+
     /**
      * 开启另外一个activity(默认动画)
      * 

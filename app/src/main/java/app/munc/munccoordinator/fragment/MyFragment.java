@@ -291,14 +291,6 @@ public class MyFragment extends Fragment {
         muncAdapter = new MuncAdapter(getActivity(), fanjuresult);
         mRcyclerview.setAdapter(muncAdapter);
         muncAdapter.addData(fanjuresult);
-        //默认加数据 总集合 默认上来9条吧
-/*        for (int a = 0; a < 10; a++) {
-            mList.add(a);
-        }*/
-        //新增集合 一次20条
-/*        for (int a = 0; a < 20; a++) {
-            addlist.add(a);
-        }*/
         //设置一个头 头部占一行
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -313,8 +305,8 @@ public class MyFragment extends Fragment {
         Glide.with(getActivity().getApplicationContext())
                 .load(tabTopImgUrl[position])
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.drawable.default_image)
-                .error(R.drawable.default_image).into(ivDetail);
+                .placeholder(R.drawable.img_column_no_comments)
+                .error(R.drawable.img_column_no_comments).into(ivDetail);
         //设置tab模拟数据
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//设置tab模式，当前为根据文本长度变化而改变
         //设置下划线宽度

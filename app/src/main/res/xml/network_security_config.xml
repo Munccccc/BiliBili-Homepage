@@ -3,6 +3,10 @@
     <domain-config>
         <domain includeSubdomains="true">api.bilibili.com</domain>
         <domain includeSubdomains="true">bangumi.bilibili.com</domain>
+        <domain includeSubdomains="true">app.bilibili.com</domain>
+        <domain includeSubdomains="true">data.bilibili.com</domain>
+        <domain includeSubdomains="true">i0.hdslb.com</domain>
+
         <trust-anchors>
             <certificates src="@raw/charlesssl" />
         </trust-anchors>

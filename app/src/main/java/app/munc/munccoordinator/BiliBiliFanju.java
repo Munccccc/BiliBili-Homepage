@@ -108,6 +108,7 @@ public class BiliBiliFanju extends AppCompatActivity {
     }
 
 
+
     //适配
     private void initLayout() {
         AppCompatUtils.setScreenScale(rlTitle, width, 1, 8.18);
@@ -186,4 +187,6 @@ public class BiliBiliFanju extends AppCompatActivity {
     public void onViewClicked() {
         finish();
     }
+
+
 }

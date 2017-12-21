@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.munc.munccoordinator.fragment.homepage.page1.RecommendFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- 综合排行榜标签 -->
+        <LinearLayout
+            android:id="@+id/ll_topMain"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tv_comprehensive"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="综合"
+                android:textColor="@color/bilibili"
+                android:textSize="@dimen/bili_normal_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Ranking_List"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_bangumi_review_ranking" />
+
+                <me.grantland.widget.AutofitTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="排行榜"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/bili_normal_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/tag_center_icon_my_tag" />
+
+                <me.grantland.widget.AutofitTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="标签"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/bili_normal_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/twinklingRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_goTop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="30dp"
+        android:src="@drawable/back_to_top"
+        android:visibility="invisible" />
+</RelativeLayout>

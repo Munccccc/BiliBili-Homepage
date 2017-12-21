@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_bili"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.munc.munccoordinator.BiliAct">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rangebar_indicator" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Copyright © 2009-2017 bilibili" />
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_centerInParent="true"
+        android:padding="65dp"
+        android:src="@drawable/img_tips_error_not_foud" />
+
+
+</RelativeLayout>
