@@ -87,6 +87,8 @@ public class RecommendFragment extends Fragment {
     private boolean isExecuteRefresh = false;
     private boolean isExecuteLoadMore = false;
     private RelativeLayout rlBanner;
+    List unBannerlist = new ArrayList();//首页列表数据 不包括轮播
+
 
     private Handler handler = new Handler() {
         @Override
@@ -97,7 +99,7 @@ public class RecommendFragment extends Fragment {
                     break;
                 case LOAD_PRODUCT_SUCESS:
                     if (isExecuteRefresh) {
-                        mAdapter.setDatas(data);
+                        mAdapter.setDatas(unBannerlist);
                         twinklingRefreshLayout.finishRefreshing();
                         isExecuteRefresh = false;
                     } else if (isExecuteLoadMore) {
@@ -157,7 +159,10 @@ public class RecommendFragment extends Fragment {
             @Override
             public void onResponse(Call<IndexInfo> call, Response<IndexInfo> response) {
                 data = response.body().getData();
-
+                //这里从1开始
+                for (int i = 1; i < data.size(); i++) {
+                    unBannerlist.add(data.get(i));
+                }
                 banner_item = response.body().getData().get(0).getBanner_item();
                 handler.obtainMessage(LOAD_BANNER_SUCESS, response).sendToTarget();
                 handler.obtainMessage(LOAD_PRODUCT_SUCESS, response).sendToTarget();
@@ -177,7 +182,7 @@ public class RecommendFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
         ResponseCommonService service = retrofit.create(ResponseCommonService.class);
-        Call<IndexInfo> call = service.getIndex2(CommonContent.actionKey, CommonContent.appkey, CommonContent.banner_hash, CommonContent.build,
+        Call<IndexInfo> call = service.getIndex2(CommonContent.actionKey, CommonContent.appkey, "", CommonContent.build,
                 CommonContent.device, CommonContent.idx, CommonContent.mobi_app, CommonContent.network
                 , CommonContent.open_event, CommonContent.platform, CommonContent.pull, Utils.getUUid(), CommonContent.style, CommonContent.ts);
         call.enqueue(new Callback<IndexInfo>() {
@@ -185,8 +190,8 @@ public class RecommendFragment extends Fragment {
             public void onResponse(Call<IndexInfo> call, Response<IndexInfo> response) {
                 data = response.body().getData();
                 banner_item = response.body().getData().get(0).getBanner_item();
-                handler.obtainMessage(LOAD_BANNER_SUCESS, response).sendToTarget();
 
+                handler.obtainMessage(LOAD_PRODUCT_SUCESS, response).sendToTarget();
             }
 
             @Override

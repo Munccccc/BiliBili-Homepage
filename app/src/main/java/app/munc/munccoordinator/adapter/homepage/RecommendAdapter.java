@@ -71,7 +71,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         if (holder instanceof HeaderViewHolder) {
         } else if (holder instanceof RcRecommendBody) {
-            IndexInfo.DataBean dataBean = dataAll.get(position);
+            IndexInfo.DataBean dataBean = dataAll.get(position - 1);
             Glide.with(mContext.getApplicationContext())
                     .load(dataBean.getCover())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
