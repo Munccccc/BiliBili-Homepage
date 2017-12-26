@@ -30,4 +30,10 @@ public class CommonContent {
     public static String pull = "1"; //第一页1 后面0
     public static String style = "1";
 
+    //变化的量idx open_event ts       banner_hash2=480492603403393003 索引0没有轮播图的列表
+//    public static int idx2 = 1503941159;
+    public static String banner_hash2 = "480492603403393003";
+    public static String open_event2 = "hot"; //后面为空
+    public static int ts2 = 999999;
+    public static String pull2 = "0"; //第一页1 后面0
 }

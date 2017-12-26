@@ -123,7 +123,7 @@ public class Page1 extends Fragment {
 
     private void initLayout() {
         width = AppCompatUtils.getAppScreenWidth(getActivity());
-        AppCompatUtils.setScreenScale(llTopBar, width, 1, 8.58);
+        AppCompatUtils.setScreenScale(llTopBar, width, 1, 11);
         AppCompatUtils.setScreenScale(ivTopBarBuy, width, 10, 10);
         AppCompatUtils.setScreenScale(ivTopBarSearch, width, 10, 10);
     }

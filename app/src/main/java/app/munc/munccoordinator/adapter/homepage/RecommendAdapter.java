@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +18,7 @@ import java.util.List;
 import app.munc.munccoordinator.R;
 import app.munc.munccoordinator.info.homepage.IndexInfo;
 import app.munc.munccoordinator.util.AppCompatUtils;
+import app.munc.munccoordinator.util.BiliUtils;
 import app.munc.munccoordinator.view.RoundImageView;
 
 /**
@@ -26,6 +29,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
+
+
     private int mHeaderCount = 1;//头部View个数
     private final Context mContext;
     private int width;
@@ -80,10 +85,25 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             ((RcRecommendBody) holder).atv_title.setText(dataBean.getTitle());
 
-            ((RcRecommendBody) holder).atv_text1.setText(dataBean.getPlay() + "");
+            ((RcRecommendBody) holder).atv_text1.setText(BiliUtils.setPlayCount(dataBean.getPlay()) + "");
 
             ((RcRecommendBody) holder).atv_text2.setText(dataBean.getDanmaku() + "");
 
+            //判断有没有rcmd_reason 没有的话取tname和tag里面的tag_name
+            if (dataBean.getRcmd_reason() == null) {
+                ((RcRecommendBody) holder).rlMain1.setVisibility(View.GONE);
+                ((RcRecommendBody) holder).llMain2.setVisibility(View.VISIBLE);
+                ((RcRecommendBody) holder).atvTitle1.setText(dataBean.getTname());
+                if (dataBean.getTag() != null) {
+                    ((RcRecommendBody) holder).atvTitle2.setText(dataBean.getTag().getTag_name());
+                } else {
+                    ((RcRecommendBody) holder).atvTitle2.setText(dataBean.getName());
+                }
+            } else {
+                ((RcRecommendBody) holder).rlMain1.setVisibility(View.VISIBLE);
+                ((RcRecommendBody) holder).llMain2.setVisibility(View.GONE);
+                ((RcRecommendBody) holder).atvRcmd.setText(dataBean.getRcmd_reason().getContent());
+            }
 
         }
     }
@@ -135,7 +155,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private class RcRecommendBody extends RecyclerView.ViewHolder {
 
         private final RoundImageView roundIv;
-        private final TextView atv_title, atv_text1, atv_text2;
+        private final TextView atv_title, atv_text1, atv_text2, atvTitle1, atvTitle2, atvRcmd;
+        private final RelativeLayout rlMain1;
+        private final LinearLayout llMain2;
 
         public RcRecommendBody(View view) {
             super(view);
@@ -143,7 +165,11 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             atv_title = view.findViewById(R.id.atv_title);
             atv_text1 = view.findViewById(R.id.atv_text1);
             atv_text2 = view.findViewById(R.id.atv_text2);
-
+            atvTitle1 = view.findViewById(R.id.atv_title1);
+            atvTitle2 = view.findViewById(R.id.atv_title2);
+            atvRcmd = view.findViewById(R.id.atv_rcmd);
+            rlMain1 = view.findViewById(R.id.rl_main1);
+            llMain2 = view.findViewById(R.id.ll_main2);
         }
     }
 }

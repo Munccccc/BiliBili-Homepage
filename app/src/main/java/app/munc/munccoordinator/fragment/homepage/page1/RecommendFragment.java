@@ -1,7 +1,6 @@
 package app.munc.munccoordinator.fragment.homepage.page1;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,9 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.gson.GsonBuilder;
+import com.lcodecore.tkrefreshlayout.IHeaderView;
+import com.lcodecore.tkrefreshlayout.OnAnimEndListener;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.lcodecore.tkrefreshlayout.utils.DensityUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -29,6 +29,7 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import app.munc.munccoordinator.R;
 import app.munc.munccoordinator.adapter.homepage.RecommendAdapter;
@@ -40,6 +41,8 @@ import app.munc.munccoordinator.inter.ResponseCommonService;
 import app.munc.munccoordinator.manager.GlideImageLoader;
 import app.munc.munccoordinator.util.AppCompatUtils;
 import app.munc.munccoordinator.util.Utils;
+import app.munc.munccoordinator.view.BiliBottomView;
+import app.munc.munccoordinator.view.BilibiliRefreshView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -54,7 +57,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecommendFragment extends Fragment {
+public class RecommendFragment extends Fragment implements IHeaderView {
 
 
     private static final int SPAN_COUNT_ONE = 1;
@@ -83,10 +86,11 @@ public class RecommendFragment extends Fragment {
     private List<String> banner_images = new ArrayList<String>();//本地创建
     private List<IndexInfo.DataBean.BannerItemBean> banner_item; //轮播图列表的集合
     private List<IndexInfo.DataBean> data;//总数据
-    private int productIndex = 1;
     private boolean isExecuteRefresh = false;
     private boolean isExecuteLoadMore = false;
     private RelativeLayout rlBanner;
+    public static int idx2 = 1503941159;
+
     List unBannerlist = new ArrayList();//首页列表数据 不包括轮播
 
 
@@ -103,6 +107,7 @@ public class RecommendFragment extends Fragment {
                         twinklingRefreshLayout.finishRefreshing();
                         isExecuteRefresh = false;
                     } else if (isExecuteLoadMore) {
+                        mAdapter.addData(data);
                         twinklingRefreshLayout.finishLoadmore();
                         isExecuteLoadMore = false;
                         if (data.size() == 0) {
@@ -140,7 +145,6 @@ public class RecommendFragment extends Fragment {
         initLayout();
         initSetting();
         resitDataLists();
-        productIndex = 1;
         isExecuteRefresh = true;
         initRetrofit();
     }
@@ -182,14 +186,13 @@ public class RecommendFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
         ResponseCommonService service = retrofit.create(ResponseCommonService.class);
-        Call<IndexInfo> call = service.getIndex2(CommonContent.actionKey, CommonContent.appkey, "", CommonContent.build,
-                CommonContent.device, CommonContent.idx, CommonContent.mobi_app, CommonContent.network
-                , CommonContent.open_event, CommonContent.platform, CommonContent.pull, Utils.getUUid(), CommonContent.style, CommonContent.ts);
+        Call<IndexInfo> call = service.getIndex2(CommonContent.actionKey, CommonContent.appkey, CommonContent.banner_hash2, CommonContent.build,
+                CommonContent.device, idx2 + "", CommonContent.mobi_app, CommonContent.network
+                , "", CommonContent.platform, CommonContent.pull2, Utils.getUUid(), CommonContent.style, "1514" + new Random().nextInt(CommonContent.ts2));
         call.enqueue(new Callback<IndexInfo>() {
             @Override
             public void onResponse(Call<IndexInfo> call, Response<IndexInfo> response) {
                 data = response.body().getData();
-                banner_item = response.body().getData().get(0).getBanner_item();
 
                 handler.obtainMessage(LOAD_PRODUCT_SUCESS, response).sendToTarget();
             }
@@ -219,13 +222,19 @@ public class RecommendFragment extends Fragment {
     }
 
     private void initSetting() {
-        ProgressLayout headerView = new ProgressLayout(getContext());
-        headerView.setColorSchemeColors(Color.parseColor("#FF4500"));
+//             twinklingRefreshLayout.setFloatRefresh(true);
+
+        BilibiliRefreshView headerView = new BilibiliRefreshView(getActivity());
         twinklingRefreshLayout.setHeaderView(headerView);
-        twinklingRefreshLayout.setFloatRefresh(true);
+
+        BiliBottomView footView = new BiliBottomView(getActivity());
+        twinklingRefreshLayout.setBottomView(footView);
+
         twinklingRefreshLayout.setEnableOverScroll(true);
-        twinklingRefreshLayout.setHeaderHeight(140);
-        twinklingRefreshLayout.setMaxHeadHeight(240);
+        twinklingRefreshLayout.setHeaderHeight(90);
+        twinklingRefreshLayout.setMaxHeadHeight(180);
+        twinklingRefreshLayout.setBottomHeight(90);
+        twinklingRefreshLayout.setMaxBottomHeight(180);
         twinklingRefreshLayout.setAutoLoadMore(true);
         //设置rc
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), SPAN_COUNT_ONE);
@@ -282,7 +291,6 @@ public class RecommendFragment extends Fragment {
                     @Override
                     public void run() {
                         resitDataLists();
-                        productIndex = 1;
                         isExecuteRefresh = true;
                         initRetrofit();
                     }
@@ -294,11 +302,11 @@ public class RecommendFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        productIndex++;
+                        idx2 = idx2 - 10;
                         isExecuteLoadMore = true;
                         initRetrofit2();
                     }
-                }, 300);
+                }, 700);
             }
         });
     }
@@ -308,8 +316,11 @@ public class RecommendFragment extends Fragment {
         if (data != null) {
             data.clear();
         }
-        if (banner_item != null) {
-            banner_item.clear();
+        if (unBannerlist != null) {
+            unBannerlist.clear();
+        }
+        if (banner_images != null) {
+            banner_images.clear();
         }
     }
 
@@ -350,7 +361,7 @@ public class RecommendFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        mBanner.stopAutoPlay();
+//        mBanner.stopAutoPlay(); 会出现空白
     }
 
     @Override
@@ -360,5 +371,30 @@ public class RecommendFragment extends Fragment {
         // 避免Handler导致内存泄漏
         handler.removeCallbacksAndMessages(null);
         handler = null;
+    }
+
+    @Override
+    public void onPullingDown(float fraction, float maxHeadHeight, float headHeight) {
+
+    }
+
+    @Override
+    public void onPullReleasing(float fraction, float maxHeadHeight, float headHeight) {
+
+    }
+
+    @Override
+    public void startAnim(float maxHeadHeight, float headHeight) {
+
+    }
+
+    @Override
+    public void onFinish(OnAnimEndListener animEndListener) {
+
+    }
+
+    @Override
+    public void reset() {
+
     }
 }

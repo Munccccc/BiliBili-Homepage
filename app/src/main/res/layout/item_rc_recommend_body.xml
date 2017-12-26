@@ -83,25 +83,23 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_main1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_weight="1">
 
             <!--Label1-->
             <me.grantland.widget.AutofitTextView
+                android:id="@+id/atv_rcmd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_recommend_shape"
                 android:gravity="center_vertical"
-                android:padding="5dp"
+                android:padding="3dp"
                 android:text="很多人推荐点"
-                android:textColor="@color/white" />
-
-
-            <!--点点点-->
-
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="25dp"
@@ -111,6 +109,39 @@
                 android:src="@drawable/ic_toolbar_more_vertical" />
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_main2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!--Label1-->
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/atv_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:text="鬼畜调教" />
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="·"
+                android:textColor="@color/black" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/atv_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:text="该来的总会来" />
+        </LinearLayout>
 
     </LinearLayout>
 
