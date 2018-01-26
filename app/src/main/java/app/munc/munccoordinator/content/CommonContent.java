@@ -31,9 +31,24 @@ public class CommonContent {
     public static String style = "1";
 
     //变化的量idx open_event ts       banner_hash2=480492603403393003 索引0没有轮播图的列表
-//    public static int idx2 = 1503941159;
+    //public static int idx2 = 1503941159;
     public static String banner_hash2 = "480492603403393003";
     public static String open_event2 = "hot"; //后面为空
-    public static int ts2 = 999999;
+    public static int ts2 = 99;
     public static String pull2 = "0"; //第一页1 后面0
+    /**
+     * 首页直播
+     */
+    public static String scale = "2";
+    public static String signId = "0a0cc5da37656b0871f7c6770a72efea"; //可固定的 未登录的
+
+    /**
+     * WebView的标题和链接
+     */
+    public static String WEBVIEW = "weburl";
+    public static String WEBVIEW_TITLE = "webview_title";
+
+    //视频拼接编号
+    public static String BiliVideo = "https://www.bilibili.com/video/av";
+
 }

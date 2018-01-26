@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/ll_clickMain"
     android:orientation="horizontal">
 
     <!--纯用RoundImageView有锯齿，不好看这里稍作处理，不用RoundImageView也可以-->

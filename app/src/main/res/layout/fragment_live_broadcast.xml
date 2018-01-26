@@ -1,13 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/twinklingRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.munc.munccoordinator.fragment.homepage.page1.LiveBroadcastFragment">
+    tools:context="app.munc.munccoordinator.fragment.mainbili.page1.LiveBroadcastFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_goTop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="30dp"
+        android:src="@drawable/back_to_top"
+        android:visibility="invisible" />
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

@@ -1,4 +1,4 @@
-package app.munc.munccoordinator.fragment.homepage.page1;
+package app.munc.munccoordinator.fragment.mainbili.page1;
 
 
 import android.os.Bundle;

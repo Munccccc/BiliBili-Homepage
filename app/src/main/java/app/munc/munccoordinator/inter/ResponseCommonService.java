@@ -5,6 +5,7 @@ import app.munc.munccoordinator.info.BiliBiliFanjuInfo;
 import app.munc.munccoordinator.info.RankingInfo;
 import app.munc.munccoordinator.info.homepage.IndexInfo;
 import app.munc.munccoordinator.info.homepage.TopbarInfo;
+import app.munc.munccoordinator.info.homepage.AppUserInfo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -107,4 +108,26 @@ public interface ResponseCommonService {
                               @Query("sign") String sign,
                               @Query("style") String style,
                               @Query("ts") String ts);
+
+    /**
+     bilibili首页直播
+     actionKey	appkey
+     appkey	27eb53fc9058f8c3
+     build	6190
+     device	phone
+     mobi_app	iphone
+     platform	ios
+     sign	44722fc51f40178891431b46cef42995
+     ts	1514280821
+     */
+    @GET("getAllList")
+    Call<AppUserInfo> getAppLive(@Query("actionKey") String actionKey,
+                                 @Query("appkey") String appkey,
+                                 @Query("build") String build,
+                                 @Query("device") String device,
+                                 @Query("mobi_app") String mobi_app,
+                                 @Query("platform") String platform,
+                                 @Query("scale") String scale,
+                                 @Query("sign") String sign);
+
 }

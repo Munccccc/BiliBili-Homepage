@@ -1,4 +1,4 @@
-package app.munc.munccoordinator.fragment.homepage;
+package app.munc.munccoordinator.fragment.mainbili;
 
 
 import android.os.Bundle;
@@ -25,11 +25,11 @@ import app.munc.munccoordinator.adapter.MyFragmentPagerAdapter;
 import app.munc.munccoordinator.content.CommonContent;
 import app.munc.munccoordinator.content.UrlBaseContent;
 import app.munc.munccoordinator.content.UrlContent;
-import app.munc.munccoordinator.fragment.homepage.page1.AfterSomeFragment;
-import app.munc.munccoordinator.fragment.homepage.page1.LiveBroadcastFragment;
-import app.munc.munccoordinator.fragment.homepage.page1.MoviesFragment;
-import app.munc.munccoordinator.fragment.homepage.page1.RecommendFragment;
-import app.munc.munccoordinator.fragment.homepage.page1.SpecialColumnFragment;
+import app.munc.munccoordinator.fragment.mainbili.page1.AfterSomeFragment;
+import app.munc.munccoordinator.fragment.mainbili.page1.LiveBroadcastFragment;
+import app.munc.munccoordinator.fragment.mainbili.page1.MoviesFragment;
+import app.munc.munccoordinator.fragment.mainbili.page1.RecommendFragment;
+import app.munc.munccoordinator.fragment.mainbili.page1.SpecialColumnFragment;
 import app.munc.munccoordinator.info.homepage.TopbarInfo;
 import app.munc.munccoordinator.inter.ResponseCommonService;
 import app.munc.munccoordinator.util.AppCompatUtils;

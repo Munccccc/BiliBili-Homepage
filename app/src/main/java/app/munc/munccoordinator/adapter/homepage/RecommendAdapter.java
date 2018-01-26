@@ -1,6 +1,8 @@
 package app.munc.munccoordinator.adapter.homepage;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.munc.munccoordinator.R;
+import app.munc.munccoordinator.content.CommonContent;
+import app.munc.munccoordinator.fragment.mainbili.page1.web.RecommendWebView;
 import app.munc.munccoordinator.info.homepage.IndexInfo;
 import app.munc.munccoordinator.util.AppCompatUtils;
 import app.munc.munccoordinator.util.BiliUtils;
@@ -29,6 +33,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
+    private final FragmentActivity mActivity;
 
 
     private int mHeaderCount = 1;//头部View个数
@@ -38,9 +43,10 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<IndexInfo.DataBean> dataAll = new ArrayList<>();
 
 
-    public RecommendAdapter(Context context, List listT) {
+    public RecommendAdapter(Context context, List listT, FragmentActivity activity) {
         this.mContext = context;
         this.dataAll = listT;
+        this.mActivity = activity;
     }
 
     //分页加载的添加数据 暂时不要
@@ -73,10 +79,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-
         if (holder instanceof HeaderViewHolder) {
         } else if (holder instanceof RcRecommendBody) {
-            IndexInfo.DataBean dataBean = dataAll.get(position - 1);
+            final IndexInfo.DataBean dataBean = dataAll.get(position - 1);
+            //特殊处理bilibili的链接
+            String biliUrl = dataBean.getUri();
+            String indexStr="bilibili://video/";
+            final String videoNumUrl = biliUrl.substring(biliUrl.indexOf(indexStr) + indexStr.length(), biliUrl.length());//视频编号
+
+
             Glide.with(mContext.getApplicationContext())
                     .load(dataBean.getCover())
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -104,6 +115,17 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((RcRecommendBody) holder).llMain2.setVisibility(View.GONE);
                 ((RcRecommendBody) holder).atvRcmd.setText(dataBean.getRcmd_reason().getContent());
             }
+            ((RcRecommendBody) holder).ll_clickMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, RecommendWebView.class);
+                    intent.putExtra(CommonContent.WEBVIEW, CommonContent.BiliVideo + videoNumUrl+"/");
+                    intent.putExtra(CommonContent.WEBVIEW_TITLE, "");
+                    mContext.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                }
+            });
+
 
         }
     }
@@ -157,7 +179,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private final RoundImageView roundIv;
         private final TextView atv_title, atv_text1, atv_text2, atvTitle1, atvTitle2, atvRcmd;
         private final RelativeLayout rlMain1;
-        private final LinearLayout llMain2;
+        private final LinearLayout llMain2, ll_clickMain;
 
         public RcRecommendBody(View view) {
             super(view);
@@ -170,6 +192,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             atvRcmd = view.findViewById(R.id.atv_rcmd);
             rlMain1 = view.findViewById(R.id.rl_main1);
             llMain2 = view.findViewById(R.id.ll_main2);
+            //点击看视频
+            ll_clickMain = view.findViewById(R.id.ll_clickMain);
+
         }
     }
 }

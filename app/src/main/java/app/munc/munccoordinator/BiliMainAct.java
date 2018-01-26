@@ -11,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import app.munc.munccoordinator.fragment.homepage.Page1;
-import app.munc.munccoordinator.fragment.homepage.Page2;
-import app.munc.munccoordinator.fragment.homepage.Page3;
-import app.munc.munccoordinator.fragment.homepage.Page4;
-import app.munc.munccoordinator.fragment.homepage.Page5;
+import app.munc.munccoordinator.fragment.mainbili.Page1;
+import app.munc.munccoordinator.fragment.mainbili.Page2;
+import app.munc.munccoordinator.fragment.mainbili.Page3;
+import app.munc.munccoordinator.fragment.mainbili.Page4;
+import app.munc.munccoordinator.fragment.mainbili.Page5;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

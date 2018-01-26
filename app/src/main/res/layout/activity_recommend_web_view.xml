@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_recommend_web_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.munc.munccoordinator.fragment.mainbili.page1.web.RecommendWebView">
+
+    <ProgressBar
+        android:id="@+id/my_ProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_color" />
+
+    <WebView
+        android:id="@+id/mWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+</RelativeLayout>

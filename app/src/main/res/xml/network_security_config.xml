@@ -4,9 +4,19 @@
         <domain includeSubdomains="true">api.bilibili.com</domain>
         <domain includeSubdomains="true">bangumi.bilibili.com</domain>
         <domain includeSubdomains="true">app.bilibili.com</domain>
+        <domain includeSubdomains="true">www.bilibili.com</domain>
         <domain includeSubdomains="true">data.bilibili.com</domain>
-        <domain includeSubdomains="true">i0.hdslb.com</domain>
         <domain includeSubdomains="true">api.live.bilibili.com</domain>
+        <domain includeSubdomains="true">s1.hdslb.com</domain>
+        <domain includeSubdomains="true">i0.hdslb.com</domain>
+        <domain includeSubdomains="true">i1.hdslb.com</domain>
+        <domain includeSubdomains="true">i2.hdslb.com</domain>
+        <domain includeSubdomains="true">static.hdslb.com</domain>
+        <domain includeSubdomains="true">activity.hdslb.com</domain>
+        <domain includeSubdomains="true">game.bilibili.com</domain>
+        <domain includeSubdomains="true">show.bilibili.com</domain>
+        <domain includeSubdomains="true">m.bilibili.com</domain>
+        <domain includeSubdomains="true">comment.bilibili.com</domain>
 
         <trust-anchors>
             <certificates src="@raw/charlesssl" />

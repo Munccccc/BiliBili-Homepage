@@ -14,4 +14,6 @@ public class UrlContent {
 
     public final static String commonTimer = "http://192.168.10.107:8034/";
 
+    public final static String commonLive = "https://api.live.bilibili.com/";
+
 }

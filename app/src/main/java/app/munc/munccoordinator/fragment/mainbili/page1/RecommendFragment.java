@@ -1,6 +1,7 @@
-package app.munc.munccoordinator.fragment.homepage.page1;
+package app.munc.munccoordinator.fragment.mainbili.page1;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +37,7 @@ import app.munc.munccoordinator.adapter.homepage.RecommendAdapter;
 import app.munc.munccoordinator.content.CommonContent;
 import app.munc.munccoordinator.content.UrlBaseContent;
 import app.munc.munccoordinator.content.UrlContent;
+import app.munc.munccoordinator.fragment.mainbili.page1.web.RecommendWebView;
 import app.munc.munccoordinator.info.homepage.IndexInfo;
 import app.munc.munccoordinator.inter.ResponseCommonService;
 import app.munc.munccoordinator.manager.GlideImageLoader;
@@ -55,7 +57,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass.  推荐模块
  */
 public class RecommendFragment extends Fragment implements IHeaderView {
 
@@ -63,6 +65,7 @@ public class RecommendFragment extends Fragment implements IHeaderView {
     private static final int SPAN_COUNT_ONE = 1;
     private static final int LOAD_BANNER_SUCESS = 2;
     private static final int LOAD_PRODUCT_SUCESS = 3;
+    private static final int LOAD_PRODUCT_SUCESS2 = 4;
     @BindView(R.id.tv_comprehensive)
     AutofitTextView tvComprehensive;
     @BindView(R.id.ll_Ranking_List)
@@ -91,8 +94,8 @@ public class RecommendFragment extends Fragment implements IHeaderView {
     private RelativeLayout rlBanner;
     public static int idx2 = 1503941159;
 
-    List unBannerlist = new ArrayList();//首页列表数据 不包括轮播
-
+    List unBannerlist = new ArrayList();//首页列表数据 不包括轮播 下拉用
+    List unBannerLoadMorelist = new ArrayList();//首页列表数据 不包括轮播 加载更多
 
     private Handler handler = new Handler() {
         @Override
@@ -107,10 +110,21 @@ public class RecommendFragment extends Fragment implements IHeaderView {
                         twinklingRefreshLayout.finishRefreshing();
                         isExecuteRefresh = false;
                     } else if (isExecuteLoadMore) {
-                        mAdapter.addData(data);
+                        mAdapter.addData(dataLoadMore);
                         twinklingRefreshLayout.finishLoadmore();
                         isExecuteLoadMore = false;
-                        if (data.size() == 0) {
+                        if (dataLoadMore.size() == 0) {
+                            Utils.showToast(getContext(), getContext().getString(R.string.loadnomore));
+                            return;
+                        }
+                    }
+                    break;
+                case LOAD_PRODUCT_SUCESS2:
+                    if (isExecuteLoadMore) {
+                        mAdapter.addData(unBannerLoadMorelist);
+                        twinklingRefreshLayout.finishLoadmore();
+                        isExecuteLoadMore = false;
+                        if (unBannerLoadMorelist.size() == 0) {
                             Utils.showToast(getContext(), getContext().getString(R.string.loadnomore));
                             return;
                         }
@@ -119,6 +133,7 @@ public class RecommendFragment extends Fragment implements IHeaderView {
             }
         }
     };
+    private List<IndexInfo.DataBean> dataLoadMore;
 
 
     public RecommendFragment() {
@@ -188,13 +203,20 @@ public class RecommendFragment extends Fragment implements IHeaderView {
         ResponseCommonService service = retrofit.create(ResponseCommonService.class);
         Call<IndexInfo> call = service.getIndex2(CommonContent.actionKey, CommonContent.appkey, CommonContent.banner_hash2, CommonContent.build,
                 CommonContent.device, idx2 + "", CommonContent.mobi_app, CommonContent.network
-                , "", CommonContent.platform, CommonContent.pull2, Utils.getUUid(), CommonContent.style, "1514" + new Random().nextInt(CommonContent.ts2));
+                , "", CommonContent.platform, CommonContent.pull2, Utils.getUUid(), CommonContent.style, "15142712" + new Random().nextInt(CommonContent.ts2));
         call.enqueue(new Callback<IndexInfo>() {
             @Override
             public void onResponse(Call<IndexInfo> call, Response<IndexInfo> response) {
-                data = response.body().getData();
-
-                handler.obtainMessage(LOAD_PRODUCT_SUCESS, response).sendToTarget();
+                dataLoadMore = response.body().getData();
+                if (response.body().getData().get(0).getBanner_item() != null) {
+                    //这里从1开始
+                    for (int i = 1; i < dataLoadMore.size(); i++) {
+                        unBannerLoadMorelist.add(dataLoadMore.get(i));
+                    }
+                    handler.obtainMessage(LOAD_PRODUCT_SUCESS2, response).sendToTarget();
+                } else {
+                    handler.obtainMessage(LOAD_PRODUCT_SUCESS, response).sendToTarget();
+                }
             }
 
             @Override
@@ -215,15 +237,17 @@ public class RecommendFragment extends Fragment implements IHeaderView {
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-//                dealWithBannerClick(position);//跳转
+                Intent intent = new Intent(getActivity(), RecommendWebView.class);
+                intent.putExtra(CommonContent.WEBVIEW, banner_item.get(position).getUri());
+                intent.putExtra(CommonContent.WEBVIEW_TITLE, "");
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         mBanner.start();
     }
 
     private void initSetting() {
-//             twinklingRefreshLayout.setFloatRefresh(true);
-
         BilibiliRefreshView headerView = new BilibiliRefreshView(getActivity());
         twinklingRefreshLayout.setHeaderView(headerView);
 
@@ -239,7 +263,7 @@ public class RecommendFragment extends Fragment implements IHeaderView {
         //设置rc
         final GridLayoutManager manager = new GridLayoutManager(getActivity(), SPAN_COUNT_ONE);
         recyclerview.setLayoutManager(manager);
-        mAdapter = new RecommendAdapter(getActivity(), listT);
+        mAdapter = new RecommendAdapter(getActivity(), listT, getActivity());
         //头部的布局适配
         View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.item_rc_recommend_header, null); //有一个null header布局 如果不想要头的话
         rlBanner = inflate.findViewById(R.id.rl_banner);
@@ -303,6 +327,9 @@ public class RecommendFragment extends Fragment implements IHeaderView {
                     @Override
                     public void run() {
                         idx2 = idx2 - 10;
+                        if (unBannerLoadMorelist != null) {
+                            unBannerLoadMorelist.clear();
+                        }
                         isExecuteLoadMore = true;
                         initRetrofit2();
                     }

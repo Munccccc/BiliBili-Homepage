@@ -1,4 +1,4 @@
-package app.munc.munccoordinator.fragment.homepage;
+package app.munc.munccoordinator.fragment.mainbili.page1;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import app.munc.munccoordinator.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Page2 extends Fragment {
+public class AfterSomeFragment extends Fragment {
 
 
-    public Page2() {
+    public AfterSomeFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class Page2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_page2, container, false);
+        return inflater.inflate(R.layout.fragment_after_some, container, false);
     }
 
 }
