@@ -41,4 +41,5 @@ dependencies {
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'me.grantland:autofittextview:0.2.+'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
 }
