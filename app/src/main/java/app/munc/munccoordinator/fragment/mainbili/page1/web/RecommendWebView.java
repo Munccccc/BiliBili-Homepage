@@ -1,15 +1,19 @@
 package app.munc.munccoordinator.fragment.mainbili.page1.web;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -32,6 +36,10 @@ public class RecommendWebView extends AppCompatActivity {
     private String web_url;
     private int ProgressPosition = 0;
     private String web_title;
+    private View mCustomView;
+    private int mOriginalSystemUiVisibility;
+    private int mOriginalOrientation;
+    private WebChromeClient.CustomViewCallback mCustomViewCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +81,7 @@ public class RecommendWebView extends AppCompatActivity {
             }
             return true;
         }
+
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -119,6 +128,70 @@ public class RecommendWebView extends AppCompatActivity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
+        }
+
+        @Override
+        public Bitmap getDefaultVideoPoster() {
+            if (this == null) {
+                return null;
+            }
+
+            //这个地方是加载h5的视频列表 默认图   点击前的视频图
+            return BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                    R.mipmap.ic_launcher);
+        }
+
+
+        @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            // if a view already exists then immediately terminate the new one
+            if (mCustomView != null) {
+                onHideCustomView();
+                return;
+            }
+
+            // 1. Stash the current state
+            mCustomView = view;
+            mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
+            mOriginalOrientation = getRequestedOrientation();
+
+            // 2. Stash the custom view callback
+            mCustomViewCallback = callback;
+
+            // 3. Add the custom view to the view hierarchy
+            FrameLayout decor = (FrameLayout) getWindow().getDecorView();
+            decor.addView(mCustomView, new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+            // 4. Change the state of the window
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_IMMERSIVE);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
+        @Override
+        public void onHideCustomView() {
+            // 1. Remove the custom view
+            FrameLayout decor = (FrameLayout) getWindow().getDecorView();
+            decor.removeView(mCustomView);
+            mCustomView = null;
+
+            // 2. Restore the state to it's original form
+            getWindow().getDecorView()
+                    .setSystemUiVisibility(mOriginalSystemUiVisibility);
+            setRequestedOrientation(mOriginalOrientation);
+
+            // 3. Call the custom view callback
+            mCustomViewCallback.onCustomViewHidden();
+            mCustomViewCallback = null;
+
         }
     }
 }

@@ -51,4 +51,13 @@ public class CommonContent {
     //视频拼接编号
     public static String BiliVideo = "https://www.bilibili.com/video/av";
 
+    //视频的flv地址
+    public static String BiliFlvUrl = "biliflvurl";
+
+    //视频的flv标题
+    public static String BiliFlvTitle = "biliflvtitle";
+
+    //视频的flv默认图片
+    public static String BiliFlvImg = "biliflvimg";
+
 }

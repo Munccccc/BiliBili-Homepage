@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_live_broadcast_video"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="app.munc.munccoordinator.activity.LiveBroadcastVideoAct">
+
+    <app.munc.munccoordinator.view.ijkplayer.IjkVideoView
+        android:id="@+id/ijkViewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"></app.munc.munccoordinator.view.ijkplayer.IjkVideoView>
+
+    <cn.jzvd.JZVideoPlayerStandard
+        android:id="@+id/videoplayer"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="200dp"/>
+
+    <VideoView
+        android:id="@+id/videoview"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+
+    /*布局文件*/
+    <io.vov.vitamio.widget.VideoView
+        android:id="@+id/surface_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

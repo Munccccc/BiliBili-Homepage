@@ -3,16 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     buildToolsVersion "25.0.3"
-    aaptOptions.cruncherEnabled = false
-    aaptOptions.useNewCruncher = false
-
+    lintOptions {
+        abortOnError false
+    }
     defaultConfig {
         applicationId "app.munc.munccoordinator"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -20,13 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
-
+repositories {
+    mavenCentral()
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //thanks ↓
     compile project(path: ':banner')
+    compile 'com.android.support:preference-v7:26.0.0-alpha1'
+    compile 'com.android.support:support-annotations:26.0.0-alpha1'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
@@ -42,4 +42,6 @@ dependencies {
     compile 'me.grantland:autofittextview:0.2.+'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
+    compile project(':vitamio')
+    compile 'com.makeramen:roundedimageview:2.3.0'
 }

@@ -10,15 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.munc.munccoordinator.R;
-import app.munc.munccoordinator.info.homepage.IndexInfo;
+import app.munc.munccoordinator.info.homepage.AppUserInfo;
 import app.munc.munccoordinator.util.AppCompatUtils;
 
 /**
  * Created by GD on 2017/12/26.
  */
-
+//这个适配器适用于直播栏目下的列表格式
 public class LiveBroadcastAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
 
@@ -27,7 +26,7 @@ public class LiveBroadcastAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final Context mContext;
     private int width;
     private View headerView1;
-    private List<IndexInfo.DataBean> dataAll = new ArrayList<>();
+    private List<AppUserInfo.DataBean.RecommendDataBean.LivesBean> dataAll = new ArrayList<>();
 
 
     public LiveBroadcastAdapter(Context context, List listT) {
@@ -36,13 +35,13 @@ public class LiveBroadcastAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     //分页加载的添加数据 暂时不要
-    public void addData(List<IndexInfo.DataBean> productList) {
+    public void addData(List<AppUserInfo.DataBean.RecommendDataBean.LivesBean>  productList) {
         dataAll.addAll(productList);
         notifyDataSetChanged();
     }
 
     //刷新数据 暂时需要
-    public void setDatas(List<IndexInfo.DataBean> productList) {
+    public void setDatas(List<AppUserInfo.DataBean.RecommendDataBean.LivesBean> productList) {
         dataAll.clear();
         dataAll.addAll(productList);
         notifyDataSetChanged();
@@ -55,7 +54,7 @@ public class LiveBroadcastAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (viewType == ITEM_TYPE_HEADER) {
             return new RecommendAdapter.HeaderViewHolder(headerView1);
         } else if (viewType == ITEM_TYPE_CONTENT) {
-            View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rc_recommend_body, parent, false);
+            View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rc_livebroadcast_body, parent, false);
 
             return new RcRecommendBody(layout);
         }
@@ -101,19 +100,6 @@ public class LiveBroadcastAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setHeaderView(View headerView) {
         headerView1 = headerView;
-    }
-
-
-    /**
-     * 注意:这里头部 ViewHolder  这里也可以抽取出来 单独放一个类  在上方给一个flag switch判断是哪个头部 并return不同的头部Holder类 身体Holder同理 后续添加
-     * 在onBindViewHolder里面一样通过flag判断是instanceof哪个类的Holder
-     */
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-
-        public HeaderViewHolder(View itemView) {
-            super(itemView);
-        }
     }
 
     private class RcRecommendBody extends RecyclerView.ViewHolder {

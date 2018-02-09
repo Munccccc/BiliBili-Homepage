@@ -28,9 +28,8 @@ import app.munc.munccoordinator.view.RoundImageView;
 /**
  * Created by GD on 2017/12/19.
  */
-
+//这个适配器适用于推荐栏目下的列表格式
 public class RecommendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
     private final FragmentActivity mActivity;

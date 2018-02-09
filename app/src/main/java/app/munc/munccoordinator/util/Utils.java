@@ -616,6 +616,7 @@ public class Utils {
 
                         TextView mTextView = (TextView) mTextViewField.get(tabView);
 
+
                         tabView.setPadding(0, 0, 0, 0);
 
                         //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度

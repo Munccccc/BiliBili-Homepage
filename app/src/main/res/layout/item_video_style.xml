@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:background="@drawable/bg_video_shape"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/bg_video_shape">
+        android:layout_margin="10dp">
 
         <app.munc.munccoordinator.view.RoundImageView
             android:id="@+id/iv_videoScreenshot"
@@ -25,16 +25,17 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_margin="10dp"
-            android:text="名称"
+            android:text="UP主"
             android:textColor="@color/white" />
 
     </RelativeLayout>
 
     <me.grantland.widget.AutofitTextView
+        android:id="@+id/live_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:maxLines="2"
+        android:maxLines="1"
         android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题" />
 
     <RelativeLayout
@@ -44,6 +45,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_liveCategory"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -58,9 +60,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/badge_download_failed" />
+                android:src="@drawable/ic_svg_create_group" />
 
             <TextView
+                android:id="@+id/tv_liveOnline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

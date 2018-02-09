@@ -96,7 +96,7 @@ public class Page1 extends Fragment {
 
     private void initTab() {
         //设置下划线宽度
-        Utils.setTabIndicator(mTabLayout, 15, 15);
+        Utils.setTabIndicator(mTabLayout, 15);
 
         // 初始化导航文字]
         for (int i = 0; i < tabTitle.length; i++) {

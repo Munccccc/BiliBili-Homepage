@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -12,8 +13,8 @@
 
         <ImageView
             android:id="@+id/iv_recommend_column"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center" />
 
         <TextView
@@ -51,28 +52,35 @@
         android:id="@+id/recommendGridView1"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="10dp"
         android:gravity="center"
         android:listSelector="@android:color/transparent"
         android:numColumns="2"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="20dp"></app.munc.munccoordinator.view.MyGridView>
+        android:verticalSpacing="10dp"></app.munc.munccoordinator.view.MyGridView>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_centerBanner"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="10dp" />
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bangumi_sponsor_result_ic_portrait_33"
+        app:riv_border_color="#333333"
+        app:riv_border_width="0.5dp"
+        app:riv_corner_radius="15dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="false"
+        app:riv_tile_mode="clamp" />
 
     <app.munc.munccoordinator.view.MyGridView
         android:id="@+id/recommendGridView2"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="10dp"
         android:gravity="center"
         android:listSelector="@android:color/transparent"
         android:numColumns="2"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="20dp"></app.munc.munccoordinator.view.MyGridView>
+        android:verticalSpacing="10dp"></app.munc.munccoordinator.view.MyGridView>
 
     <!--点击换一换-->
     <LinearLayout

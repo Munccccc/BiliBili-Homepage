@@ -1,6 +1,7 @@
 package app.munc.munccoordinator.fragment.mainbili.page1;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.joanzapata.android.QuickAdapter;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.utils.DensityUtil;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.munc.munccoordinator.R;
+import app.munc.munccoordinator.activity.LiveBroadcastVideoAct;
 import app.munc.munccoordinator.adapter.homepage.LiveBroadcastAdapter;
 import app.munc.munccoordinator.content.CommonContent;
 import app.munc.munccoordinator.content.UrlBaseContent;
@@ -83,6 +87,7 @@ public class LiveBroadcastFragment extends Fragment {
 
     private List<String> banner_images = new ArrayList<>();
     private ImageView iv_channel2, iv_channel3, iv_channel4, iv_channel5, iv_recommend_column;
+    private RoundedImageView iv_centerBanner;
     private TextView tv_channel2, tv_channel3, tv_channel4, tv_channel5, tv_anchor_count, tv_recommend_column;
     private MyGridView recommendGridView1, recommendGridView2;
     private Handler mHandler = new Handler() {
@@ -100,15 +105,32 @@ public class LiveBroadcastFragment extends Fragment {
                     break;
                 case LOAD_RECOMMENDED_ANCHORS_SUCESS:
                     setRecommendedAnchors();
+                    if (isExecuteRefresh) {
+                        twinklingRefreshLayout.finishLoadmore();
+                        mAdapter.setDatas(lives);
+                        isExecuteRefresh = false;
+                    }
                     break;
             }
         }
     };
     private AppUserInfo.DataBean.RecommendDataBean recommend_data;
     private List<VideoColumnEntity> modulelist = new ArrayList<VideoColumnEntity>();
+    private List<AppUserInfo.DataBean.RecommendDataBean.LivesBean> lives;
+    private List<VideoColumnEntity> modulelist2 = new ArrayList<VideoColumnEntity>();
 
     //handler3 .推荐zb
     private void setRecommendedAnchors() {
+        tv_anchor_count.setText("当前有" + recommend_data.getPartition().getCount() + "个主播,进去看看");
+        //不做轮播了 默认取第一张
+        Glide.with(getActivity().getApplicationContext())
+                .load(recommend_data.getBanner_data().get(0).getCover().getSrc())
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.drawable.bg_following_default_image_tv9)
+                .error(R.drawable.bg_following_default_image_tv9).into(iv_centerBanner);
+
         Glide.with(getActivity().getApplicationContext())
                 .load(recommend_data.getPartition().getSub_icon().getSrc())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -118,11 +140,22 @@ public class LiveBroadcastFragment extends Fragment {
 
         for (int i = 0; i < recommend_data.getLives().size() / 2; i++) {
             VideoColumnEntity videoColumnEntity = new VideoColumnEntity();
-            videoColumnEntity.setVideoCapture(recommend_data.getLives().get(i).getOwner().getFace());
-            videoColumnEntity.setVideoTitle(recommend_data.getLives().get(i).getTitle());
+            videoColumnEntity.setVideoCapture(recommend_data.getLives().get(i).getCover().getSrc());//图片
+            videoColumnEntity.setVideoTitle(recommend_data.getLives().get(i).getTitle());//标题
+            videoColumnEntity.setVideoUpPerson(recommend_data.getLives().get(i).getOwner().getName());//UP
+            videoColumnEntity.setVideoCategory(recommend_data.getLives().get(i).getArea_v2_name());//类型
+            videoColumnEntity.setVideoViewingNumber(recommend_data.getLives().get(i).getOnline() + "");//人数
             modulelist.add(videoColumnEntity);
         }
-
+        for (int i = recommend_data.getLives().size() / 2; i < recommend_data.getLives().size(); i++) {
+            VideoColumnEntity videoColumnEntity = new VideoColumnEntity();
+            videoColumnEntity.setVideoCapture(recommend_data.getLives().get(i).getCover().getSrc());
+            videoColumnEntity.setVideoTitle(recommend_data.getLives().get(i).getTitle());
+            videoColumnEntity.setVideoUpPerson(recommend_data.getLives().get(i).getOwner().getName());
+            videoColumnEntity.setVideoCategory(recommend_data.getLives().get(i).getArea_v2_name());//类型
+            videoColumnEntity.setVideoViewingNumber(recommend_data.getLives().get(i).getOnline() + "");//人数
+            modulelist2.add(videoColumnEntity);
+        }
 
         recommendGridView1.setAdapter(new QuickAdapter<VideoColumnEntity>(getContext(), R.layout.item_video_style, modulelist) {
 
@@ -134,12 +167,53 @@ public class LiveBroadcastFragment extends Fragment {
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .placeholder(R.drawable.bg_following_default_image_tv9)
                         .error(R.drawable.bg_following_default_image_tv9).into(iv_videoScreenshot);
-                baseAdapterHelper.setText(R.id.tv_videoTitle, inviteMethodEntity.getVideoTitle());
+                baseAdapterHelper.setText(R.id.live_title, inviteMethodEntity.getVideoTitle());
+                baseAdapterHelper.setText(R.id.tv_videoTitle, inviteMethodEntity.getVideoUpPerson());
+                baseAdapterHelper.setText(R.id.tv_liveCategory, inviteMethodEntity.getVideoCategory());
+                baseAdapterHelper.setText(R.id.tv_liveOnline, inviteMethodEntity.getVideoViewingNumber());
+
+
             }
         });
+
+        recommendGridView2.setAdapter(new QuickAdapter<VideoColumnEntity>(getContext(), R.layout.item_video_style, modulelist2) {
+
+            @Override
+            protected void convert(BaseAdapterHelper baseAdapterHelper, VideoColumnEntity inviteMethodEntity) {
+                RoundImageView iv_videoScreenshot = baseAdapterHelper.getView(R.id.iv_videoScreenshot);
+                Glide.with(getActivity().getApplicationContext())
+                        .load(inviteMethodEntity.getVideoCapture())
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .placeholder(R.drawable.bg_following_default_image_tv9)
+                        .error(R.drawable.bg_following_default_image_tv9).into(iv_videoScreenshot);
+                baseAdapterHelper.setText(R.id.live_title, inviteMethodEntity.getVideoTitle());
+                baseAdapterHelper.setText(R.id.tv_videoTitle, inviteMethodEntity.getVideoUpPerson());
+                baseAdapterHelper.setText(R.id.tv_liveCategory, inviteMethodEntity.getVideoCategory());
+                baseAdapterHelper.setText(R.id.tv_liveOnline, inviteMethodEntity.getVideoViewingNumber());
+            }
+        });
+        recommendGridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), LiveBroadcastVideoAct.class);
+                intent.putExtra(CommonContent.BiliFlvUrl, recommend_data.getLives().get(i).getPlayurl());
+                intent.putExtra(CommonContent.BiliFlvTitle, recommend_data.getLives().get(i).getOwner().getName());
+                intent.putExtra(CommonContent.BiliFlvImg, recommend_data.getLives().get(i).getCover().getSrc());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+        recommendGridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+
     }
 
     private List<AppUserInfo.DataBean.PartitionsBean> partitions;
+    private List<AppUserInfo.DataBean.BannerBean> banner_item;
 
     //handler2. 频道显示
     private void setChannel() {
@@ -171,7 +245,6 @@ public class LiveBroadcastFragment extends Fragment {
 
     }
 
-    private List<AppUserInfo.DataBean.BannerBean> banner_item;
 
     //handler1. 轮播图
     private void setBanners() {
@@ -228,6 +301,7 @@ public class LiveBroadcastFragment extends Fragment {
         twinklingRefreshLayout.setEnableOverScroll(true);
         twinklingRefreshLayout.setHeaderHeight(90);
         twinklingRefreshLayout.setMaxHeadHeight(180);
+        twinklingRefreshLayout.setEnableRefresh(false);//先禁用了
 
 
         //设置rc
@@ -255,6 +329,8 @@ public class LiveBroadcastFragment extends Fragment {
 
         recommendGridView1 = inflate.findViewById(R.id.recommendGridView1);
         recommendGridView2 = inflate.findViewById(R.id.recommendGridView2);
+
+        iv_centerBanner = inflate.findViewById(R.id.iv_centerBanner);
 
 
         mBanner.setIndicatorGravity(BannerConfig.RIGHT);
@@ -326,6 +402,7 @@ public class LiveBroadcastFragment extends Fragment {
                 banner_item = response.body().getData().getBanner(); //banner
                 partitions = response.body().getData().getPartitions();//频道
                 recommend_data = response.body().getData().getRecommend_data();//推荐zb
+                lives = recommend_data.getLives();//这里就刷新下推荐 全部刷新adapter传入多个集合即可
                 mHandler.obtainMessage(LOAD_BANNER_SUCESS, response).sendToTarget();
                 mHandler.obtainMessage(LOAD_CHANNEL_SUCESS, response).sendToTarget();
                 mHandler.obtainMessage(LOAD_RECOMMENDED_ANCHORS_SUCESS, response).sendToTarget();
@@ -339,7 +416,15 @@ public class LiveBroadcastFragment extends Fragment {
     }
 
     private void resitDataLists() {
-
+        if (lives != null) {
+            lives.clear();
+        }
+        if (modulelist != null) {
+            modulelist.clear();
+        }
+        if (modulelist2 != null) {
+            modulelist2.clear();
+        }
     }
 
     @Override
