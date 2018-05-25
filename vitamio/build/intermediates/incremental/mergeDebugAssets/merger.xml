@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="I:\github\MuncCoordinator\vitamio\src\main\assets"/><source path="I:\github\MuncCoordinator\vitamio\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="I:\github\MuncCoordinator\vitamio\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\MuncCoordinator\vitamio\src\main\assets"/><source path="E:\MuncCoordinator\vitamio\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\MuncCoordinator\vitamio\src\debug\assets"/></dataSet></merger>

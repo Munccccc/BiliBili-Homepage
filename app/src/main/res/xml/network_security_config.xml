@@ -19,7 +19,7 @@
         <domain includeSubdomains="true">comment.bilibili.com</domain>
 
         <trust-anchors>
-            <certificates src="@raw/charlesssl" />
+            <certificates src="@raw/ca" />
         </trust-anchors>
     </domain-config>
 </network-security-config>
